@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Pepero Day, 포마 ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Jua', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffe6eb 0%, #ffc2d1 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d6336c;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 10px 30px rgba(255, 107, 129, 0.2);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        @media (min-width: 428px) {
+            .container {
+                min-height: 850px;
+                border-radius: 30px;
+                margin: 20px 0;
+            }
+        }
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .screen.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: #ff4757;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            transition: 0.2s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        /* 퀴즈 스타일 */
+        .quiz-box {
+            background: #fff0f3;
+            padding: 20px;
+            border-radius: 20px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .quiz-btn {
+            background: white;
+            border: 2px solid #ffccd5;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #d6336c;
+            transition: 0.2s;
+        }
+        .quiz-btn:hover {
+            background: #ffe3e6;
+        }
+        #quiz-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 15px;
+            min-height: 22px;
+        }
+        /* 사진 4장 앨범 그리드 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin: 15px 0;
+        }
+        .photo-card {
+            background: #fff0f3;
+            border: 2px solid #ff85a1;
+            border-radius: 15px;
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 편지 스타일 */
+        .letter-box {
+            background: #fff9fa;
+            border: 2px solid #ffccd5;
+            border-radius: 20px;
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 5px;
+        }
+        /* 미니게임 하트 채우기 */
+        .game-area {
+            font-size: 50px;
+            cursor: pointer;
+            user-select: none;
+            margin: 20px 0;
+            transition: transform 0.1s;
+        }
+        .game-area:active {
+            transform: scale(1.2);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #ff4757;
+            transition: width 0.1s;
+        }
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .nav-btn {
+            background: #ff85a1;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 화면 1: 시작 화면 -->
+    <div id="screen-1" class="screen active">
+        <div style="font-size: 60px; margin-bottom: 15px;">🍫💌</div>
+        <h1>포마를 위한 특별한 날</h1>
+        <p>11월 1일, 영이가 준비한<br>서프라이즈 웹사이트에 입장하시겠습니까?</p>
+        <button class="btn" onclick="nextScreen(2)">입장하기 ❤️</button>
+    </div>
+
+    <!-- 화면 2: 퀴즈 화면 (6:40 ~ 6:49 선지) -->
+    <div id="screen-2" class="screen">
+        <h1>🧠 영이 탄생 시각 맞추기</h1>
+        <div class="quiz-box">
+            <p id="quiz-question">Q1. 영이가 세상에 태어난 시간은 몇 시일까요?</p>
+            <div class="quiz-options">
+                <button class="quiz-btn" onclick="checkAnswer(false)">오전 6시 40분</button>
+                <button class="quiz-btn" onclick="checkAnswer(false)">오전 6시 43분</button>
+                <button class="quiz-btn" onclick="checkAnswer(true)">오전 6시 46분</button>
+                <button class="quiz-btn" onclick="checkAnswer(false)">오전 6시 49분</button>
+            </div>
+            <div id="quiz-feedback"></div>
+        </div>
+        <div class="footer-nav" style="width:100%;">
+            <button class="nav-btn" onclick="nextScreen(1)">이전</button>
+            <button class="nav-btn" id="to-screen-3" style="display:none;" onclick="nextScreen(3)">다음으로 ➡️</button>
+        </div>
+    </div>
+
+    <!-- 화면 3: 사진 4장 & 편지 화면 -->
+    <div id="screen-3" class="screen">
+        <h1>📸 포마 & 영이의 추억 앨범</h1>
+        
+        <div class="photo-grid">
+            <!-- 사진 1은 .jpeg로 적용 -->
+            <div class="photo-card"><img src="photo1.jpeg" alt="추억 1"></div>
+            <div class="photo-card"><img src="photo2.jpg" alt="추억 2"></div>
+            <div class="photo-card"><img src="photo3.jpg" alt="추억 3"></div>
+            <div class="photo-card"><img src="photo4.jpg" alt="추억 4"></div>
+        </div>
+
+        <div class="letter-box">
+            <b>TO.포마</b><br><br>
+            자기야 벌써 11월이 됐어. 내 마음을 담아 이 사이트를 만들었어. 똥먹어 💩<br><br>
+            빼빼로 만들어주는 여자친구 부러워하지마 오빠 여자친구는 공대생이니까 ㅎㅎ<br><br>
+            <div style="text-align: right;"><b>FROM. 영이</b></div>
+        </div>
+
+        <div class="footer-nav" style="width:100%;">
+            <button class="nav-btn" onclick="nextScreen(2)">이전</button>
+            <button class="nav-btn" onclick="nextScreen(4)">선물 받기 🎁</button>
+        </div>
+    </div>
+
+    <!-- 화면 4: 하트 채우기 미니게임 & 완료 화면 -->
+    <div id="screen-4" class="screen">
+        <h1>💕 사랑의 게이지 충전!</h1>
+        <p>하트를 연타해서 사랑을 가득 채워줘!</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p id="score-text">0%</p>
+
+        <div class="game-area" onclick="tapHeart()">❤️</div>
+
+        <div id="final-message" style="display:none; margin-top: 10px;">
+            <p style="color: #ff4757; font-weight: bold; font-size: 18px;">🎉 충전 완료! 해피 빼빼로데이 포마야 사랑해! 🥰</p>
+        </div>
+
+        <div class="footer-nav" style="width:100%; justify-content: flex-start;">
+            <button class="nav-btn" onclick="nextScreen(3)">이전</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function nextScreen(screenNum) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen-' + screenNum).classList.add('active');
+    }
+
+    function checkAnswer(isCorrect) {
+        const feedback = document.getElementById('quiz-feedback');
+        const nextBtn = document.getElementById('to-screen-3');
+        if (isCorrect) {
+            feedback.style.color = "#2ed573";
+            feedback.innerHTML = "정답이야! 역시 내 남친 천재 ✨";
+            nextBtn.style.display = "block";
+        } else {
+            feedback.style.color = "#ff4757";
+            feedback.innerHTML = "땡! 다시 골라봐 ㅎㅎ 😜";
+        }
+    }
+
+    let score = 0;
+    function tapHeart() {
+        if (score < 100) {
+            score += 10;
+            document.getElementById('progress-fill').style.width = score + '%';
+            document.getElementById('score-text').innerText = score + '%';
+            
+            if (score >= 100) {
+                document.getElementById('final-message').style.display = 'block';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
